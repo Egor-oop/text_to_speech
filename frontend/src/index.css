@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.convert-container {
+  padding-top: 40px;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
