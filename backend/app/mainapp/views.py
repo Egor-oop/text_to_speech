@@ -11,6 +11,7 @@ class ConvertView(APIView):
             c = convert(text['text'], text['lang'])
         except KeyError:
             return Response({'failed': 'Fields \'text\' and \'lang\' are required'})
-        text['url'] = f'/media/audio/{str(c).replace(" ", "%20")}'
+        # text['url'] = f'/media/audio/{str(c).replace(" ", "%20")}'
+        text['url'] = c
         return Response({'response': text})
     # {"text": {"text": "Welcome", "lang": "en"}}
