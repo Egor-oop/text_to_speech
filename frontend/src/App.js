@@ -6,7 +6,7 @@ import ErrorPage from "./pages/ErrorPage";
 function App() {
   return <BrowserRouter>
     <Routes>
-      <Route path='/convert' element={<ConvertPage />} />
+      <Route path='/' element={<ConvertPage />} />
       <Route path='*' element={<ErrorPage />} />
     </Routes>
   </BrowserRouter>
