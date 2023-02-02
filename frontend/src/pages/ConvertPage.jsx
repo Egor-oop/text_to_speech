@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box'
 import { Button, TextField, Select, InputLabel, MenuItem } from '@mui/material'
 import AudioPlayerDOM from '../components/UI/audio/AudioPlayerDOM'
 import React, { useState } from 'react'
@@ -9,7 +8,7 @@ export const ConvertPage = () => {
   const [response, setResponse] = useState({})
 
   const convert = () => {
-    fetch('http://127.0.0.1:8000/convert/', {
+    fetch(`${process.env.REACT_APP_API_URL}convert/`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -26,7 +25,7 @@ export const ConvertPage = () => {
       {
         response['url'] &&
         (
-          <AudioPlayerDOM src={`http://127.0.0.1:8000${response['url']}`} />
+          <AudioPlayerDOM src={`${process.env.REACT_APP_API_URL}${response['url']}`} />
         )
       }
       <h1>Конвертировать текст в голос</h1>
@@ -46,7 +45,6 @@ export const ConvertPage = () => {
         id="demo-simple-select"
         value={lang}
         onChange={(e) => setLang(e.target.value)}
-        margin="normal"
       >
         <MenuItem value={'ru'}>Русский</MenuItem>
         <MenuItem value={'en'}>Английский</MenuItem>
