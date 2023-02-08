@@ -1,10 +1,11 @@
 import { Button, TextField, Select, InputLabel, MenuItem } from '@mui/material'
 import AudioPlayerDOM from '../components/UI/audio/AudioPlayerDOM'
 import React, { useState } from 'react'
+import { CustomAlert } from '../components/UI/alert/CustomAlert'
 
 export const ConvertPage = () => {
   const [text, setText] = useState('')
-  const [lang, setLang] = useState('')
+  const [lang, setLang] = useState('ru')
   const [response, setResponse] = useState({})
 
   const convert = () => {
@@ -22,6 +23,11 @@ export const ConvertPage = () => {
 
   return (
     <div className='convert-container'>
+      <CustomAlert
+        severity={'warning'}
+        title={'Внимание'}
+        text={'На данный момент приложение в разработке. Некоторые функции могут быть недоступны, такие как изменение голоса диктора или изменение скорости голоса.'}
+      />
       {
         response['url'] &&
         (
@@ -29,28 +35,31 @@ export const ConvertPage = () => {
         )
       }
       <h1>Конвертировать текст в голос</h1>
-      <TextField
-        id="outlined-textarea"
-        label="Текст"
-        placeholder="Введите текст"
-        multiline
-        fullWidth
-        margin="normal"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <InputLabel id="lang-lb">Язык</InputLabel>
-      <Select
-        labelId="lang-lb"
-        id="demo-simple-select"
-        value={lang}
-        onChange={(e) => setLang(e.target.value)}
-      >
-        <MenuItem value={'ru'}>Русский</MenuItem>
-        <MenuItem value={'en'}>Английский</MenuItem>
-      </Select>
+      <div>
+        <TextField
+          id="outlined-textarea"
+          label="Текст"
+          placeholder="Введите текст"
+          multiline
+          fullWidth
+          margin="normal"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <InputLabel id="lang-lb">Язык</InputLabel>
+        <Select
+          labelId="lang-lb"
+          id="demo-simple-select"
+          value={lang}
+          onChange={(e) => setLang(e.target.value)}
+          sx={{ mb: 2 }}
+        >
+          <MenuItem value={'ru'}>Русский</MenuItem>
+          <MenuItem value={'en'}>Английский</MenuItem>
+        </Select>
+      </div>
       <Button onClick={convert} variant="contained">
-        Конвертировать
+        Преобразовать в речь
       </Button>
     </div>
   )
