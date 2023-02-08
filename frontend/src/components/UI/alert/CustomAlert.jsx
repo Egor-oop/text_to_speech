@@ -3,10 +3,12 @@ import CloseIcon from '@mui/icons-material/Close'
 import React from 'react'
 import { useState } from 'react'
 
+import styles from './CustomAlert.module.scss'
+
 export const CustomAlert = ({severity, title, text}) => {
   const [open, setOpen] = useState(true)
   return (
-    <Collapse in={open}>
+    <Collapse in={open} className={styles['alert']}>
       <Alert
         severity={severity}
         action={
