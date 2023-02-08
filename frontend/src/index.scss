@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.convert-container {
+  padding-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .convert-container {
+    width: 1000px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .convert-container {
+    width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .convert-container {
+    max-width: 500px;
+    padding: 10px 10px 0 10px;
+  }
+}
+
+@media (max-width: 425px) {
+  .convert-container {
+    width: auto;
+  }
+}
