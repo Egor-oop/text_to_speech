@@ -6,7 +6,7 @@ from pydub.effects import speedup
 
 def change_speed(file: str, speed: float) -> None:
     audio = AudioSegment.from_file(file)
-    audio = speedup(audio, playback_speed=speed, chunk_size=100, crossfade=200)
+    audio = speedup(audio, playback_speed=speed, chunk_size=120, crossfade=40)
     audio.export(file, format='wav')
 
 
