@@ -11,10 +11,18 @@ class ConvertTTSTest(APITestCase):
         self.payload = {
             "text": {
                 "text": "First Day as a Software Engineer",
-                "lang": "en"
+                "lang": "en",
+                "speed": 1.5
             }
         }
 
+    # {
+    #     "text": {
+    #         "text": "Привет, человек!",
+    #         "lang": "ru",
+    #         "speed": 1.2
+    #     }
+    # }
     def test_convert_valid_payload_with_english(self):
         response = client.post(
             reverse('convert'),
