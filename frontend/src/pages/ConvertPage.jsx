@@ -6,9 +6,9 @@ import { CustomAlert } from '../components/UI/alert/CustomAlert'
 import styles from './ConvertPage.module.scss'
 
 export const ConvertPage = () => {
-  const [text, setText] = useState('')
+  const [text, setText] = useState('Пример конвертирования')
   const [lang, setLang] = useState('ru')
-  const [speed, setSpeed] = useState(1)
+  const [speed, setSpeed] = useState(1.0)
   const [voice, setVoice] = useState('Voice1')
   const [response, setResponse] = useState({})
 
@@ -19,7 +19,7 @@ export const ConvertPage = () => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ "text": { "text": text, "lang": lang } })
+      body: JSON.stringify({ "text": { "text": text, "lang": lang, "speed": speed} })
     })
       .then(response => response.json())
       .then(response => setResponse(response.response))
@@ -30,7 +30,7 @@ export const ConvertPage = () => {
       <CustomAlert
         severity={'warning'}
         title={'Внимание'}
-        text={'На данный момент приложение в разработке. Некоторые функции могут быть недоступны, такие как изменение голоса диктора или изменение скорости голоса.'}
+        text={'На данный момент приложение в разработке. Функция изменения голоса недоступна.'}
       />
       {
         response['url'] &&
@@ -75,8 +75,10 @@ export const ConvertPage = () => {
               onChange={(e) => setSpeed(e.target.value)}
               sx={{ mb: 2 }}
             >
-              <MenuItem value={1}>1.0x</MenuItem>
-              <MenuItem value={2}>2.0x</MenuItem>
+              <MenuItem value={1.0}>1.0x</MenuItem>
+              <MenuItem value={1.25}>1.25x</MenuItem>
+              <MenuItem value={1.5}>1.5x</MenuItem>
+              <MenuItem value={2.0}>2.0x</MenuItem>
             </Select></span>
           <span>
             {/* Voice */}
