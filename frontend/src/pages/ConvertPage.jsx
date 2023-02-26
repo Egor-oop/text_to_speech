@@ -10,7 +10,6 @@ export const ConvertPage = () => {
   const [lang, setLang] = useState('ru')
   const [speed, setSpeed] = useState(1.0)
   const [voice, setVoice] = useState('Voice1')
-  const [response, setResponse] = useState({})
   const [audios, setAudios] = useState([])
 
   const convert = () => {
@@ -28,10 +27,6 @@ export const ConvertPage = () => {
     }
     convertTTS()
   }
-
-  // React.useEffect(() => {
-  //   console.log(response['url'])
-  // }, [response])
 
   return (
     <div className='convert-container'>
