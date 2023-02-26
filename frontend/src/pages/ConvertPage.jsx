@@ -1,4 +1,5 @@
-import { Button, TextField, Select, InputLabel, MenuItem } from '@mui/material'
+import { Button, TextField, Select, InputLabel, MenuItem, IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 import AudioPlayerDOM from '../components/UI/audio/AudioPlayerDOM'
 import React, { useState } from 'react'
 import { CustomAlert } from '../components/UI/alert/CustomAlert'
@@ -10,19 +11,29 @@ export const ConvertPage = () => {
   const [lang, setLang] = useState('ru')
   const [speed, setSpeed] = useState(1.0)
   const [voice, setVoice] = useState('Voice1')
-  const [response, setResponse] = useState({})
+  const [audios, setAudios] = useState([])
 
   const convert = () => {
-    fetch(`${process.env.REACT_APP_API_URL}convert/`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ "text": { "text": text, "lang": lang, "speed": speed} })
-    })
-      .then(response => response.json())
-      .then(response => setResponse(response.response))
+    const convertTTS = () => {
+      fetch(`${process.env.REACT_APP_API_URL}convert/`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "text": { "text": text, "lang": lang, "speed": speed } })
+      })
+        .then(response => response.json())
+        .then(response => setAudios([...audios, response.response.url]))
+    }
+    convertTTS()
+  }
+
+  const removeAudio = (audio) => {
+    const index = audios.indexOf(audio)
+    let temp = [...audios]
+    temp.splice(index, 1)
+    setAudios(temp)
   }
 
   return (
@@ -32,12 +43,6 @@ export const ConvertPage = () => {
         title={'Внимание'}
         text={'На данный момент приложение в разработке. Функция изменения голоса недоступна.'}
       />
-      {
-        response['url'] &&
-        (
-          <AudioPlayerDOM src={`${process.env.REACT_APP_API_URL}${response['url']}`} />
-        )
-      }
       <h1>Конвертировать текст в голос</h1>
       <div>
         <TextField
@@ -103,6 +108,25 @@ export const ConvertPage = () => {
       <Button onClick={convert} variant="contained">
         Преобразовать в речь
       </Button>
+
+
+      <table>
+        <tbody>
+          {
+            audios.map(audio => (
+              <tr key={audio}>
+                <td>
+                  <AudioPlayerDOM src={`${process.env.REACT_APP_API_URL}${audio}`} />
+                </td>
+                <td><a href={`${process.env.REACT_APP_API_URL}${audio}`} download>Скачать</a></td>
+                <td>
+                  <IconButton onClick={() => removeAudio(audio)}><CloseIcon /></IconButton>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   )
 }
